@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import * as types from 'types';
 
 export class UsersService {
   getUsers(): any {
