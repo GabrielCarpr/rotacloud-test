@@ -4,7 +4,9 @@ import { UserRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(@Inject('UserRepository') public users: UserRepository) {}
+  constructor(
+    @Inject('UserRepository') private readonly users: UserRepository,
+  ) {}
 
   // I'd normally put application logic at this layer,
   // sorting would normally be a persistence concern too.
@@ -31,7 +33,7 @@ export class UsersService {
         return (user.firstName + user.lastName).toLowerCase();
       };
 
-      return sortKey(a) <= sortKey(b) ? 1 : -1;
+      return sortKey(a) >= sortKey(b) ? 1 : -1;
     });
   }
 }

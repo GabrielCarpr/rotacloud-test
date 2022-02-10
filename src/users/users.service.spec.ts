@@ -35,7 +35,7 @@ describe('UsersService', () => {
     expect(users.length).toBeGreaterThan(0);
   });
 
-  it.only('should return a sorted list of users', () => {
+  it('should return a sorted list of users', () => {
     const users = service.getUsers();
 
     const getFullName = (user: types.User) => {
@@ -52,7 +52,7 @@ describe('UsersService', () => {
           return true;
         }
 
-        return getFullName(user) <= getFullName(collection[index - 1]);
+        return getFullName(user) >= getFullName(collection[index - 1]);
       }),
     ).toBe(true);
     // This could be improved somewhat so that when the test fails,

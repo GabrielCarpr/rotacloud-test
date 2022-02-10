@@ -22,3 +22,14 @@ I use test-driven development 90% of the time. I wrote a test first to assert th
 I then refactored the user data access to a repository, starting with a test first. I like to keep persistence, and other infrastructure, behind an interface to make it easy to swap them out in the future, and also to use memory implementations in tests. I find this more maintainable than using magic mocking frameworks.
 
 In reality I wouldn't generally be using entities for reads, I'd prefer a direct persistence query as it's more efficient than retrieving an entity.
+
+## HTTP
+I wrote another test first, in the app E2E tests, which asserted that the route in question returned 200, and a list of users. I wanted to be sure that the user's name was returned here, so I did have to explicitly refer to some test data, which may make this test vulnerable to false negatives in the future. I then implemented the users controller and integrated it.
+
+I opted not to write a test for the user controller. The E2E test was adequate in testing the HTTP concerns with the added benefit of testing the whole stack. I don't believe in testing (well, asserting specifically) code twice - hence not testing for sorting in the E2E test, although sometimes it can be useful to test endpoints/features to a specification too. There are benefits to both approaches.
+
+Finally I tested the endpoint in my browser. I was a bit confused when it still returned 404, but I sooned noticed the logs on startup:
+```
+[Nest] 121575  - 10/02/2022, 22:08:31     LOG [RouterExplorer] Mapped {/, GET} route +3ms
+```
+and deduced that routing and possibly the DI container are all resolved on startup. I restarted, and my endpoint worked. Except I'd sorted the user's in reverse order. This highlights the importance of manual testing.

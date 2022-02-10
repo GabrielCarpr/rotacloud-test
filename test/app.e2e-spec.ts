@@ -21,4 +21,21 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
+
+  it('/users (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/users')
+      .expect(200)
+      .then((result) => {
+        expect(result.body.length).toBeGreaterThan(0);
+        expect(result.body).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              firstName: 'Andy',
+              lastName: 'Brown',
+            }),
+          ]),
+        );
+      });
+  });
 });
