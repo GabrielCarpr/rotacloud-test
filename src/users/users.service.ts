@@ -1,7 +1,7 @@
 import * as types from 'types';
 
 export class UsersService {
-  getUsers(): any {
+  getUsers(): types.User[] {
     return [
       {
         id: 1,
