@@ -33,3 +33,8 @@ Finally I tested the endpoint in my browser. I was a bit confused when it still 
 [Nest] 121575  - 10/02/2022, 22:08:31     LOG [RouterExplorer] Mapped {/, GET} route +3ms
 ```
 and deduced that routing and possibly the DI container are all resolved on startup. I restarted, and my endpoint worked. Except I'd sorted the user's in reverse order. This highlights the importance of manual testing.
+
+Normally I wouldn't return a list from an endpoint as it'd be very vulnerable to breaking changes. If we wanted to add pagination, or any other sort of metadata, we'd need to make a breaking change. If this were a public API it could be quite embarassing and annoying. However, the spec asks for this so I've left it.
+
+## Final tests
+With two tests still skipped, I decided the tests were correct. There was clearly a deliberate effort to return 'Hello World!' from the root endpoint by the fact there were two tests specifying it, and the service method was called `getHello`. I can only assume someone accidently pasted the product spec in there instead. Oops.
