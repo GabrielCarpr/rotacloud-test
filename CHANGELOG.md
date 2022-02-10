@@ -28,6 +28,8 @@ I wrote another test first, in the app E2E tests, which asserted that the route 
 
 I opted not to write a test for the user controller. The E2E test was adequate in testing the HTTP concerns with the added benefit of testing the whole stack. I don't believe in testing (well, asserting specifically) code twice - hence not testing for sorting in the E2E test, although sometimes it can be useful to test endpoints/features to a specification too. There are benefits to both approaches.
 
+However I've also had success with automating this layer of the API in the past. I'm a big fan of the ports and adapters architectural pattern, where application logic is constrained to the service layer/use case layer (or other objects such as commands and queries) and interface adapters translate that to a REST/HTML/CLI/GraphQL interface. The simplicity in the interface adapters makes them perfect to be abstracted away, or the code can be generated from a configuration file depending on language. This means only the building blocks of the interface adapter need to be testing, rather than having to write tests for glue code.
+
 Finally I tested the endpoint in my browser. I was a bit confused when it still returned 404, but I sooned noticed the logs on startup:
 ```
 [Nest] 121575  - 10/02/2022, 22:08:31     LOG [RouterExplorer] Mapped {/, GET} route +3ms
